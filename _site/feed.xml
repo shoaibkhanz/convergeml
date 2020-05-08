@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tufte-Jekyll</title>
+    <title>convergeML</title>
     <description>A Jekyll theme for content-rich sites</description>
     <link>/convergeml/</link>
     <atom:link href="/convergeml/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 08 May 2020 05:00:28 -0400</pubDate>
-    <lastBuildDate>Fri, 08 May 2020 05:00:28 -0400</lastBuildDate>
+    <pubDate>Fri, 08 May 2020 05:06:03 -0400</pubDate>
+    <lastBuildDate>Fri, 08 May 2020 05:06:03 -0400</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>

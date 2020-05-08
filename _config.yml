@@ -1,7 +1,7 @@
-baseurl: /tufte-jekyll
-title: Tufte-Jekyll
-subtitle: Content-centric blogging
-author: clay harmon
+baseurl: https://shoaibkhanz.github.io/convergeml/
+title: convergeML
+subtitle: back to basics 
+author: shoaibkhanz
 simple_search: http://google.com/search
 description: A Jekyll theme for content-rich sites
 name: tufte

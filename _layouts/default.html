@@ -6,11 +6,12 @@
     <article class="group">
       {{ content }}
       
-      {% if site.disqus.shortname %}
-        {% include disqus_comments.html %}
-      {% endif %}
 
     </article>
+    {% if site.disqus.shortname %}
+      {% include disqus_comments.html %}
+    {% endif %}
+    
     {% include print-footer.html %}
     {% include footer.html %}
   </body>

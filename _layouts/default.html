@@ -5,6 +5,10 @@
     {% include header.html %}
     <article class="group">
       {{ content }}
+
+    {% if site.disqus.shortname %}
+      {% include disqus_comments.html %}
+    {% endif %}
       
 
     </article>

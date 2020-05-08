@@ -4,7 +4,7 @@ title: About
 ---
 
 
-<img src="about.jpg" alt="Italian Trulli">
+<img src="about.jpg">
 
 My name is **`Shoaib Khan`** and this is where I try to breakdown concepts around **`machine learning`**, write about them critically and develop a better understanding. In the real world, its important to not only have the technical expertise but also rigour of problem solving. It's essential to see the world from various perspectives, never be afraid to ask a question **`(job is easy this way)`** and always be ready to learn.
 

@@ -5,29 +5,9 @@
     <description>A Jekyll theme for content-rich sites</description>
     <link>/convergeml/</link>
     <atom:link href="/convergeml/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 09 May 2020 01:47:52 -0400</pubDate>
-    <lastBuildDate>Sat, 09 May 2020 01:47:52 -0400</lastBuildDate>
+    <pubDate>Sat, 09 May 2020 01:51:04 -0400</pubDate>
+    <lastBuildDate>Sat, 09 May 2020 01:51:04 -0400</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
-    
-      <item>
-        <title>Conundrums of the Confusion Matrix</title>
-        <description>&lt;p&gt;This post was originally posted on Medium,
-I would request you to read it »»» &lt;a href=&quot;https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a&quot;&gt;
-&lt;img src=&quot;assets/img/image1.png&quot; /&gt;
-&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;If you are looking to better understand the performance of your model by considering metrics such as &lt;span style=&quot;color:#ea9808; font-weight: bold&quot;&gt;precision, recall, accuracy, error rate&lt;/span&gt; etc.. then this post will surely help you.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 13 Apr 2020 13:04:01 -0400</pubDate>
-        <link>/convergeml/articles/20/Conundrums-of-the-Confusion-Matrix</link>
-        <guid isPermaLink="true">/convergeml/articles/20/Conundrums-of-the-Confusion-Matrix</guid>
-        
-        
-        <category>post</category>
-        
-      </item>
     
   </channel>
 </rss>

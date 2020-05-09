@@ -1,0 +1,12 @@
+I"l<p>This post was originally posted on Medium,
+I would request you to read it »»» <a href="https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a">here</a></p>
+
+<figure><img src="/convergeml/assets/img/image1.png" /><figcaption class="maincolumn-figure"><span></span></figcaption></figure>
+<p>If you are looking to better understand the performance of your model by considering metrics such as <span style="color:#ea9808; font-weight: bold">precision, recall, accuracy, error rate</span> etc.. then this post will surely help you.</p>
+
+<p>ekyll customizations</p>
+
+<p>This Jekyll blog theme is based on the github repository by Edward Tufte here, which was orginally created by Dave Leipmann, but is now labeled under Edward Tufte’s moniker. I borrowed freely from the Tufte-CSS repo and have transformed many of the typographic and page-structural features into a set of custom Liquid tags that make creating content using this style much easier than writing straight HTML. Essentially, if you know markdown, and mix in a few custom Liquid tags, you can be creating a website with this document style in short order.</p>
+
+<p>The remainder of this sample post is a self-documenting survey of the features of the Tufte-Jekyll theme. I have taken almost all of the sample content from the Tufte-css repo and embedded it here to illustrate the parity in appe</p>
+:ET

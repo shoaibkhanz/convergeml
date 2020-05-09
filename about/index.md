@@ -8,7 +8,6 @@ title: About
 </a>
 
 
-{% epigraph '"All models are wrong, some are useful"' 'George Box' 'Journal of the American Statistical Association' %}
 
 I am extremely passionate about applying data science and this is where I try to breakdown concepts around <span style="color:#ea9808; font-weight: bold">machine learning</span>, write about them critically and develop a better understanding. 
 

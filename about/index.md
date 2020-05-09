@@ -7,6 +7,7 @@ title: About
 <img src="about.jpg">
 </a>
 
+
 {% epigraph '"All models are wrong, some are useful"' 'George Box' 'Journal of the American Statistical Association' %}
 
 I am extremely passionate about applying data science and this is where I try to breakdown concepts around <span style="color:#ea9808; font-weight: bold">machine learning</span>, write about them critically and develop a better understanding. 
@@ -15,12 +16,12 @@ I also believe that in the real world, its important to not only have the techni
 
 You can find me at the following places.
 
- >>>>>> [Medium](https://medium.com/@shoaibkhanz)
+  [Medium](https://medium.com/@shoaibkhanz)
 
- >>>>>> [LinkedIn](https://www.linkedin.com/in/shoaibkhanz/)
+  [LinkedIn](https://www.linkedin.com/in/shoaibkhanz/)
 
- >>>>>> [GitHub](https://github.com/shoaibkhanz)
+  [GitHub](https://github.com/shoaibkhanz)
 
- >>>>>> [Twitter](https://twitter.com/shoaibkhanz)
+  [Twitter](https://twitter.com/shoaibkhanz)
 
 

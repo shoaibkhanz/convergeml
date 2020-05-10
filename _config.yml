@@ -11,11 +11,11 @@ permalink: /articles/:short_year/:title
 timezone: America/New_York
 excerpt_separator: <!--more-->  # you can specify your own separator, of course.
 exclude: ['Gemfile', 'Gemfile.lock', 'Rakefile', 'UploadToGithub.Rakefile', 'README.md']
-post:
-  template: _post.txt
-  extension: md
 page:
   template: _page.txt
+  extension: md
+post:
+  template: _post.txt
   extension: md
 editor: gvim
 git:
@@ -31,4 +31,3 @@ disqus:
     # Leave shortname blank to disable comments site-wide.
     # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
     shortname: https-shoaibkhanz-github-io-convergeml
-

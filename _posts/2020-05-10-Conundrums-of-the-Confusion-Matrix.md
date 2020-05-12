@@ -4,11 +4,13 @@ title:  "Conundrums of the Confusion Matrix"
 date:   2020-04-10 17:04:01
 categories: post
 comments: true
+author: Shoaib Khan
 ---
 
 
 This post was originally posted on Medium,
-I would request you to read it >>>>>> [here](https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a)
+I would request you to read it >>>>>> <A STYLE="color: #ea9808" HREF="https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a">here</A>
+<!--more-->
 
 {% maincolumn 'assets/img/image1.png' %}
 

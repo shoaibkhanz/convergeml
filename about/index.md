@@ -9,11 +9,9 @@ title: About
 
 {% epigraph ' "All models are wrong, some are useful" ' 'George Box' 'Journal of the American Statistical Association' %}
 
+I am the author behind **convergeml** with a simple goal of explaining the concepts of <span style="color:#ea9808; font-weight: bold">machine learning</span> with brevity. While its important to understand the mechanics and deep-rooted meaning of algorithms, it is equally vital to understand the use case and not be blinded in sheer excitement.I am passionate and keen to grasp the ideas of machine learning and its <span style="color:#ea9808; font-weight: bold">applications</span> in the real world, and I hope so are you!
 
-I am extremely passionate about applying data science and this is where I try to breakdown concepts around <span style="color:#ea9808; font-weight: bold">machine learning</span>, write about them critically and develop a better understanding. 
-
-I also believe that in the real world, its important to not only have the technical expertise but also rigour of problem solving. It's essential to see the world from various <span style="color:#ea9808; font-weight: bold">perspectives</span>, never be afraid to ask a question and always be ready to learn. I am excited about learning new stuff and ready to apply them to find solutions to <span style="color:#ea9808; font-weight: bold">problems (new and old)</span>, improving as I go along.
-
+I hope that you find the writings useful and share your feedback.
 You can find me at the following places.
 
   [Medium](https://medium.com/@shoaibkhanz)

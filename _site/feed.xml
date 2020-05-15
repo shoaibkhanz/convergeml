@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>convergeML</title>
-    <description>A Jekyll theme for content-rich sites</description>
+    <description>Converge to better learning</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 13 May 2020 18:28:41 -0400</pubDate>
-    <lastBuildDate>Wed, 13 May 2020 18:28:41 -0400</lastBuildDate>
+    <pubDate>Fri, 15 May 2020 13:36:07 -0400</pubDate>
+    <lastBuildDate>Fri, 15 May 2020 13:36:07 -0400</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -29,18 +29,29 @@ I would request you to read it »»» &lt;a href=&quot;https://medium.com/conve
       </item>
     
       <item>
-        <title>Conundrums of the Confusion Matrix</title>
-        <description>&lt;p&gt;This post was originally posted on Medium,
-I would request you to read it »»» &lt;a style=&quot;color: #ea9808&quot; href=&quot;https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a&quot;&gt;here&lt;/a&gt;
-&lt;!--more--&gt;&lt;/p&gt;
+        <title>Why ECDF is better than a Histogram</title>
+        <description>&lt;p&gt;If you have never heard of &lt;b style=&quot;color: #ea9808&quot;&gt;binning bias&lt;/b&gt; then you could be using histograms and drawing &lt;b style=&quot;color: #868686&quot;&gt;incorrect&lt;/b&gt; conclusions. Please read my original post on &lt;a style=&quot;color: #ea9808&quot; href=&quot;https://medium.com/convergeml/why-ecdf-is-better-than-a-histogram-85deda4129ed&quot;&gt;Medium&lt;/a&gt; and it will help you avoid those mistakes.&lt;/p&gt;
 
-&lt;figure&gt;&lt;img src=&quot;/assets/img/image1.png&quot; /&gt;&lt;figcaption class=&quot;maincolumn-figure&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/figcaption&gt;&lt;/figure&gt;
-
-&lt;p&gt;If you are looking to better understand the performance of your model by considering metrics such as &lt;span style=&quot;color:#ea9808; font-weight: bold&quot;&gt;precision, recall, accuracy, error rate&lt;/span&gt; etc.. then this post will surely help you.&lt;/p&gt;
+&lt;!--more--&gt;
 </description>
-        <pubDate>Fri, 10 Apr 2020 13:04:01 -0400</pubDate>
-        <link>http://localhost:4000/articles/20/Conundrums-of-the-Confusion-Matrix</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/20/Conundrums-of-the-Confusion-Matrix</guid>
+        <pubDate>Sun, 20 Jan 2019 19:00:00 -0500</pubDate>
+        <link>http://localhost:4000/articles/19/Why-ECDF-is-better-than-a-Histogram</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/19/Why-ECDF-is-better-than-a-Histogram</guid>
+        
+        
+        <category>post</category>
+        
+      </item>
+    
+      <item>
+        <title>Conundrums of the Confusion Matrix</title>
+        <description>&lt;p&gt;Its extremely important to understand your model’s performance. In this post, I explain fundamental metrics such as &lt;span style=&quot;color:#ea9808; font-weight: bold&quot;&gt;precision, recall, accuracy, error rate&lt;/span&gt; etc.. these metrics help us evaluate all types of classification models e.g. &lt;b style=&quot;color: #868686&quot;&gt;logistic regression, random forest, neural network&lt;/b&gt; etc.
+I had written this post originally on &lt;a style=&quot;color: #ea9808&quot; href=&quot;https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a&quot;&gt;Medium&lt;/a&gt; and its been appreciated by many for its simplicity and visuals.
+&lt;!--more--&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 12 Jan 2019 19:00:00 -0500</pubDate>
+        <link>http://localhost:4000/articles/19/Conundrums-of-the-Confusion-Matrix</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/19/Conundrums-of-the-Confusion-Matrix</guid>
         
         
         <category>post</category>

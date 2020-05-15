@@ -7,11 +7,6 @@ comments: true
 author: Shoaib Khan
 ---
 
-
-This post was originally posted on Medium,
-I would request you to read it >>>>>> <A STYLE="color: #ea9808" HREF="https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a">here</A>
+Its extremely important to understand your model's performance. In this post, I explain fundamental metrics such as <span style="color:#ea9808; font-weight: bold">precision, recall, accuracy, error rate</span> etc.. these metrics help us evaluate all types of classification models e.g. <b STYLE="color: #868686">logistic regression, random forest, neural network</b> etc.
+I had written this post originally on <A STYLE="color: #ea9808" HREF="https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a">Medium</A> and its been appreciated by many for its simplicity and visuals.
 <!--more-->
-
-{% maincolumn 'assets/img/image1.png' %}
-
-If you are looking to better understand the performance of your model by considering metrics such as <span style="color:#ea9808; font-weight: bold">precision, recall, accuracy, error rate</span> etc.. then this post will surely help you. 

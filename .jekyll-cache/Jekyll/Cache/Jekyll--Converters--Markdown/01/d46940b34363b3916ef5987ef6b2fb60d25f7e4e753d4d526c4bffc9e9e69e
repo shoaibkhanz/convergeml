@@ -1,4 +1,0 @@
-I"V<p>Its extremely important to understand your model’s performance. In this post, I explain fundamental metrics such as <span style="color:#ea9808; font-weight: bold">precision, recall, accuracy, error rate</span> etc.. these metrics are back-bone to evaluate all types of classification models e.g. logistic regression, random forest, neural network etc.
-I had written this post originally on <a style="color: #ea9808" href="https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a">Medium</a> and its been appreciated by many for its simplicity and visuals.
-<!--more--></p>
-:ET

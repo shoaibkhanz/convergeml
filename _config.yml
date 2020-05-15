@@ -3,7 +3,7 @@ title: convergeML
 subtitle: 
 author: shoaibkhanz
 simple_search: http://google.com/search
-description: Converge to better learning
+description: converge to better learning
 name: 
 markdown: kramdown
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
@@ -24,7 +24,7 @@ transfer:
   command: rsync
   settings: -av
   source: _site/
-  destination: ~/Git/clayh53.github.com/
+  destination: 
 
 # Disqus Comments
 disqus:

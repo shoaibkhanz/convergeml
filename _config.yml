@@ -31,3 +31,6 @@ disqus:
     # Leave shortname blank to disable comments site-wide.
     # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
     shortname: https-shoaibkhanz-github-io-convergeml
+
+    # Google services
+google_analytics: UA-166788498-1

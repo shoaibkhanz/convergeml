@@ -5,18 +5,19 @@
     <description>converge to better learning</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 16 May 2020 06:47:08 -0400</pubDate>
-    <lastBuildDate>Sat, 16 May 2020 06:47:08 -0400</lastBuildDate>
+    <pubDate>Sat, 16 May 2020 11:20:20 -0400</pubDate>
+    <lastBuildDate>Sat, 16 May 2020 11:20:20 -0400</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
-        <title>Forecasting using Prophet</title>
-        <description>&lt;p&gt;In Progress
-&lt;!--more--&gt;&lt;/p&gt;
+        <title>Introduction to Forecasting using Prophet</title>
+        <description>&lt;p&gt;&lt;span class=&quot;newthought&quot;&gt;&lt;b style=&quot;color:#868686;&quot;&gt;Prophet&lt;/b&gt;&lt;/span&gt;  is a machine learning library that enables you to forecast &lt;b style=&quot;color:#ea9808;&quot;&gt;time series.&lt;/b&gt;&lt;/p&gt;
+
+&lt;!--more--&gt;
 </description>
         <pubDate>Mon, 20 Apr 2020 13:04:01 -0400</pubDate>
-        <link>http://localhost:4000/articles/20/Forecasting-using-Prophet</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/20/Forecasting-using-Prophet</guid>
+        <link>http://localhost:4000/articles/20/Introduction-to-Forecasting-using-Prophet</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/20/Introduction-to-Forecasting-using-Prophet</guid>
         
         
         <category>post</category>

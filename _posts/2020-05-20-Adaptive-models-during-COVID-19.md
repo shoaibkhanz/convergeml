@@ -1,0 +1,16 @@
+---
+layout: post
+title:  "Adaptive models during COVID-19"
+date:   2020-04-17 04:00:00
+categories: post
+comments: true
+author: Shoaib Khan
+---
+
+<span style="color:#868686;">COVID-19</span> has derailed many aspects of life and its hard to adapt. However, to survive we must.
+The story is hardly different when we look at our mathematical models, many good models have come crashing down as they failed to adjust to sudden fluctuations in the data. Primarily, this has resulted to 2 outcomes.
+<!--more-->
+
+1) You are now building a short term model i.e. a model that helps you predict the covid-19 period but guess what ?, there isn't a lot of data. Thus you are struggling.
+
+2) You continue to use the same model while waiting for a unique solution.

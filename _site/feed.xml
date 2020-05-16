@@ -5,19 +5,23 @@
     <description>converge to better learning</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 16 May 2020 11:20:20 -0400</pubDate>
-    <lastBuildDate>Sat, 16 May 2020 11:20:20 -0400</lastBuildDate>
+    <pubDate>Sat, 16 May 2020 18:42:54 -0400</pubDate>
+    <lastBuildDate>Sat, 16 May 2020 18:42:54 -0400</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
-        <title>Introduction to Forecasting using Prophet</title>
-        <description>&lt;p&gt;&lt;span class=&quot;newthought&quot;&gt;&lt;b style=&quot;color:#868686;&quot;&gt;Prophet&lt;/b&gt;&lt;/span&gt;  is a machine learning library that enables you to forecast &lt;b style=&quot;color:#ea9808;&quot;&gt;time series.&lt;/b&gt;&lt;/p&gt;
+        <title>Adaptive models during COVID-19</title>
+        <description>&lt;p&gt;&lt;span style=&quot;color:#868686;&quot;&gt;COVID-19&lt;/span&gt; has derailed many aspects of life and its hard to adapt. However, to survive we must.
+The story is hardly different when we look at our mathematical models, many good models have come crashing down as they failed to adjust to sudden fluctuations in the data. Primarily, this has resulted to 2 outcomes.
+&lt;!--more--&gt;&lt;/p&gt;
 
-&lt;!--more--&gt;
+&lt;p&gt;1) You are now building a short term model i.e. a model that helps you predict the covid-19 period but guess what ?, there isn’t a lot of data. Thus you are struggling.&lt;/p&gt;
+
+&lt;p&gt;2) You continue to use the same model while waiting for a unique solution.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 20 Apr 2020 13:04:01 -0400</pubDate>
-        <link>http://localhost:4000/articles/20/Introduction-to-Forecasting-using-Prophet</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/20/Introduction-to-Forecasting-using-Prophet</guid>
+        <pubDate>Fri, 17 Apr 2020 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/articles/20/Adaptive-models-during-COVID-19</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/20/Adaptive-models-during-COVID-19</guid>
         
         
         <category>post</category>
@@ -41,8 +45,8 @@
     
       <item>
         <title>Conundrums of the Confusion Matrix</title>
-        <description>&lt;p&gt;Its extremely important to understand your model’s performance. In this post, I explain fundamental metrics such as &lt;span style=&quot;color:#ea9808; font-weight: bold&quot;&gt;precision, recall, accuracy, error rate&lt;/span&gt; etc.. these metrics help us evaluate all types of classification models e.g. &lt;b style=&quot;color: #868686&quot;&gt;logistic regression, random forest, neural network&lt;/b&gt; etc.
-I had written this post originally on &lt;a style=&quot;color: #ea9808&quot; href=&quot;https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a&quot;&gt;Medium&lt;/a&gt; and its been appreciated by many for its simplicity and visuals.
+        <description>&lt;p&gt;Its extremely important to understand your model’s performance. In this post, I explain fundamental metrics such as &lt;span style=&quot;color:#ea9808;&quot;&gt;precision, recall, accuracy, error rate&lt;/span&gt; etc.. these metrics help us evaluate all types of classification models e.g. &lt;b style=&quot;color: #868686&quot;&gt;logistic regression, random forest, neural network&lt;/b&gt; etc.
+I had written this &lt;a style=&quot;color: #ea9808&quot; href=&quot;https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a&quot;&gt;post&lt;/a&gt; originally on Medium and its been appreciated by many for its simplicity and visuals.
 &lt;!--more--&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 12 Jan 2019 19:00:00 -0500</pubDate>

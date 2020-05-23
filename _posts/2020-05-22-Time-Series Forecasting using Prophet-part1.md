@@ -110,6 +110,8 @@ forecast1.tail()
 
 <span style="color:#868686;">forecast1</span> dataframe multiple variables but the key variables we focus for now are <span style="color:#ea9808;">ds,trend,weekly,yearly and yhat</span>
 
+$$ \hat Y = $$ trend + weekly + yearly 
+
 
 | ds         | trend     | weekly    | yearly    | yhat      |
 |------------|-----------|-----------|-----------|-----------|

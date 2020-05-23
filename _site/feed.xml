@@ -5,9 +5,284 @@
     <description>converge to better learning</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 18 May 2020 16:05:13 -0400</pubDate>
-    <lastBuildDate>Mon, 18 May 2020 16:05:13 -0400</lastBuildDate>
+    <pubDate>Sat, 23 May 2020 01:38:54 -0400</pubDate>
+    <lastBuildDate>Sat, 23 May 2020 01:38:54 -0400</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Time-Series Forecasting using Prophet (part1)</title>
+        <description>&lt;p&gt;&lt;span class=&quot;newthought&quot;&gt;&lt;span style=&quot;color:#868686;&quot;&gt; Prophet&lt;/span&gt;&lt;/span&gt;  is a time-series forecasting library by &lt;span style=&quot;color:#ea9808;&quot;&gt; facebook&lt;/span&gt; and it’s available in Python and in R. It is simple to use and requires very little classical time-series experience, for e.g. ARIMA, SARIMA etc. Thus, you can start &lt;span style=&quot;color:#868686;&quot;&gt;building models quickly&lt;/span&gt;, &lt;span style=&quot;color:#868686;&quot;&gt;get good results&lt;/span&gt; and &lt;span style=&quot;color:#868686;&quot;&gt;become effective&lt;/span&gt; in no time. Considering all prophet has become a popular library for time-series applications.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;A model in prophet is defined by the following equation. 
+This form is called general additive models, since we adding results from each of the components to get our prediction.&lt;/p&gt;
+
+\[\hat Y_t  = g_t + s_t + h_t + x_t + \epsilon\]
+
+&lt;p&gt;\(\hat Y_t\)  is the predictions.&lt;/p&gt;
+
+&lt;p&gt;\(g_t\) stands for growth model i.e. trend (logistic/linear)&lt;/p&gt;
+
+&lt;p&gt;\(s_t\) model seasonality using Fourier series&lt;/p&gt;
+
+&lt;p&gt;\(h_t\) modeling holiday effects&lt;/p&gt;
+
+&lt;p&gt;\(x_t\) any extra regressors&lt;/p&gt;
+
+&lt;p&gt;\(\epsilon\) normally distributed errors&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-this-post-about-&quot;&gt;What is this post about ?&lt;/h2&gt;
+&lt;p&gt;In this first post on prophet ,my objective is simply to get you started with &lt;span style=&quot;color:#ea9808;&quot;&gt; forecasting&lt;/span&gt;. I aim to cover the very basic to get you off the ground. In this series of posts, the aim is to cover all the features of prophet in parts. We will explore under-the-hood mathematics that defines prophet and tinker with how it’s applied in code. For now, I will make sure that after reading this you know enough to get your first time-series model up and running.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:#868686;&quot;&gt; All the code required to run the model is available on GitHub&lt;/span&gt; &lt;a href=&quot;https://github.com/shoaibkhanz/fbprophet_case_studies/tree/master/Part1&quot;&gt;&lt;span style=&quot;color:#ea9808;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;dataset&quot;&gt;Dataset&lt;/h2&gt;
+&lt;p&gt;&lt;span style=&quot;color:#ea9808;&quot;&gt;Time-series data is where the values are recorded sequentially with respect to time&lt;/span&gt;, for e.g. temperature data or health tracker data etc. For this post, we will model maximum temperature data for Sydney, Australia between the years 2013-2017 and we want to forecast it another year. This data has a strong seasonal pattern with a weak trend (Fig1). If at this point you are wondering what do we mean by seasonality and trend then you must read &lt;a href=&quot;https://otexts.com/fpp3/tspatterns.html&quot;&gt;time-series patterns by rob hyndman&lt;/a&gt; before reading any further.&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-up-to-explore-and-forecast&quot;&gt;Setting up to explore and forecast&lt;/h2&gt;
+
+&lt;p&gt;We want to set up our environment with libraries that we would need for this forecasting exercise.
+So, we install the necessary packages below.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Importing the libraries
+&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#for data manipulation
+&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#for plotting
+&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;fbprophet&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Prophet&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#for forecasting
+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We then read our data which is stored as a &lt;code class=&quot;highlighter-rouge&quot;&gt;csv&lt;/code&gt;.
+This data contains around 24 variables but we are interested in 2 variables &lt;span style=&quot;color:#DC143C;&quot;&gt;MaxTemp&lt;/span&gt; since its the target and the &lt;span style=&quot;color:#ea9808;&quot;&gt;Date&lt;/span&gt; variable as it’s the primary time sequence. Prophet requires the date variable to be set as a &lt;span style=&quot;color:#ea9808;&quot;&gt;datetime&lt;/span&gt; object and so we must convert it so. However, the interesting thing here is that we must name our date variable as &lt;span style=&quot;color:#ea9808;&quot;&gt;ds&lt;/span&gt; and the target variable as &lt;span style=&quot;color:#DC143C;&quot;&gt;y&lt;/span&gt;, this is how prophet expects  them to be.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# reading a csv
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'../datasets/ausraindata.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# converting the string to datetime object
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ds'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_datetime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Date'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# creating a new variable y 
+# i.e. target variable, same as MaxTemp
+# If you wanted to, you could rename it as well.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'y'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MaxTemp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The data contains temperature values for many locations across Australia, We are going to filter, select on Sydney, and extract data from 2013 onwards.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c1&quot;&gt;# filtering the data by 2 conditions
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Location'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Sydney'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ds'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2013&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),:]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# selecting the required variables
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ds'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'y'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As we feel the need to plot the time-series to understand how the maximum temperature (&lt;span style=&quot;color:#868686;&quot;&gt;measured in Celsius degrees&lt;/span&gt;) has been across these years. We observe that it has peaks and valleys which we should expect as the temperature drops during winters and increases back up during summers. Thus, it’s seasonal and we should expect the model to detect this pattern.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#plotting the time-series
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ds'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'y'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Max Temperature in Sydney from 2013-2017'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;figure class=&quot;fullwidth&quot;&gt;&lt;img src=&quot;/assets/img/fb_prophet_11.svg&quot; /&gt;&lt;figcaption&gt;Fig1: Plotting daily time-series of Max Temperature in Sydney,Australia&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;fitting-a-prophet-model&quot;&gt;Fitting a Prophet model&lt;/h2&gt;
+
+&lt;p&gt;We have the data ready containing only 2 variables i.e. &lt;span style=&quot;color:#ea9808;&quot;&gt;ds&lt;/span&gt; and &lt;span style=&quot;color:#ea9808;&quot;&gt;y&lt;/span&gt; and this is sufficient to build our very basic prophet model.
+The first step is to instantiate the model by calling Prophet class and define seasonality. &lt;label for=&quot;1&quot; class=&quot;margin-toggle sidenote-number&quot;&gt;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;1&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;sidenote&quot;&gt;although we are just defining seasonality there are many default options that get chosen for us. e.g. by default seasonality mode is always &lt;code class=&quot;highlighter-rouge&quot;&gt;additive&lt;/code&gt; but we could change it to multiplicative if required. &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;After creating the &lt;code class=&quot;highlighter-rouge&quot;&gt;m1&lt;/code&gt; object we fit it to the data. Once, we have completed this step successfully, we must create a forecasting dataframe with future dates using the &lt;code class=&quot;highlighter-rouge&quot;&gt;make_future_dataframe&lt;/code&gt; method. We use &lt;code class=&quot;highlighter-rouge&quot;&gt;periods&lt;/code&gt; to define the length of the forecasting dates and then simply predict. Now the &lt;code class=&quot;highlighter-rouge&quot;&gt;forecast1&lt;/code&gt; dataframe contains train and test data along with the forecast values called &lt;code class=&quot;highlighter-rouge&quot;&gt;yhat&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# training a prophet model 
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;Prophet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;daily_seasonality&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+              &lt;span class=&quot;n&quot;&gt;weekly_seasonality&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+              &lt;span class=&quot;n&quot;&gt;yearly_seasonality&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;m1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;future1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_future_dataframe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;periods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;365&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;forecast1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;future1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;forecast1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:#868686;&quot;&gt;forecast1&lt;/span&gt; dataframe contains the following data and the key variables too focus on are &lt;span style=&quot;color:#ea9808;&quot;&gt;ds,trend,yearly,weekly and yhat&lt;/span&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;ds&lt;/th&gt;
+      &lt;th&gt;trend&lt;/th&gt;
+      &lt;th&gt;yhat_lower&lt;/th&gt;
+      &lt;th&gt;yhat_upper&lt;/th&gt;
+      &lt;th&gt;trend_lower&lt;/th&gt;
+      &lt;th&gt;trend_upper&lt;/th&gt;
+      &lt;th&gt;additive_terms&lt;/th&gt;
+      &lt;th&gt;additive_terms_lower&lt;/th&gt;
+      &lt;th&gt;additive_terms_upper&lt;/th&gt;
+      &lt;th&gt;weekly&lt;/th&gt;
+      &lt;th&gt;weekly_lower&lt;/th&gt;
+      &lt;th&gt;weekly_upper&lt;/th&gt;
+      &lt;th&gt;yearly&lt;/th&gt;
+      &lt;th&gt;yearly_lower&lt;/th&gt;
+      &lt;th&gt;yearly_upper&lt;/th&gt;
+      &lt;th&gt;multiplicative_terms&lt;/th&gt;
+      &lt;th&gt;multiplicative_terms_lower&lt;/th&gt;
+      &lt;th&gt;multiplicative_terms_upper&lt;/th&gt;
+      &lt;th&gt;yhat&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-06-21&lt;/td&gt;
+      &lt;td&gt;24.032494&lt;/td&gt;
+      &lt;td&gt;14.843615&lt;/td&gt;
+      &lt;td&gt;23.077360&lt;/td&gt;
+      &lt;td&gt;23.957479&lt;/td&gt;
+      &lt;td&gt;24.105033&lt;/td&gt;
+      &lt;td&gt;-5.063215&lt;/td&gt;
+      &lt;td&gt;-5.063215&lt;/td&gt;
+      &lt;td&gt;-5.063215&lt;/td&gt;
+      &lt;td&gt;0.156514&lt;/td&gt;
+      &lt;td&gt;0.156514&lt;/td&gt;
+      &lt;td&gt;0.156514&lt;/td&gt;
+      &lt;td&gt;-5.219729&lt;/td&gt;
+      &lt;td&gt;-5.219729&lt;/td&gt;
+      &lt;td&gt;-5.219729&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;18.969280&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-06-22&lt;/td&gt;
+      &lt;td&gt;24.032998&lt;/td&gt;
+      &lt;td&gt;14.692531&lt;/td&gt;
+      &lt;td&gt;22.382954&lt;/td&gt;
+      &lt;td&gt;23.957705&lt;/td&gt;
+      &lt;td&gt;24.106094&lt;/td&gt;
+      &lt;td&gt;-5.281766&lt;/td&gt;
+      &lt;td&gt;-5.281766&lt;/td&gt;
+      &lt;td&gt;-5.281766&lt;/td&gt;
+      &lt;td&gt;0.007727&lt;/td&gt;
+      &lt;td&gt;0.007727&lt;/td&gt;
+      &lt;td&gt;0.007727&lt;/td&gt;
+      &lt;td&gt;-5.289494&lt;/td&gt;
+      &lt;td&gt;-5.289494&lt;/td&gt;
+      &lt;td&gt;-5.289494&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;18.751232&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-06-23&lt;/td&gt;
+      &lt;td&gt;24.033502&lt;/td&gt;
+      &lt;td&gt;14.554238&lt;/td&gt;
+      &lt;td&gt;22.553681&lt;/td&gt;
+      &lt;td&gt;23.957940&lt;/td&gt;
+      &lt;td&gt;24.107150&lt;/td&gt;
+      &lt;td&gt;-5.415719&lt;/td&gt;
+      &lt;td&gt;-5.415719&lt;/td&gt;
+      &lt;td&gt;-5.415719&lt;/td&gt;
+      &lt;td&gt;-0.059232&lt;/td&gt;
+      &lt;td&gt;-0.059232&lt;/td&gt;
+      &lt;td&gt;-0.059232&lt;/td&gt;
+      &lt;td&gt;-5.356488&lt;/td&gt;
+      &lt;td&gt;-5.356488&lt;/td&gt;
+      &lt;td&gt;-5.356488&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;18.617783&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-06-24&lt;/td&gt;
+      &lt;td&gt;24.034006&lt;/td&gt;
+      &lt;td&gt;14.820403&lt;/td&gt;
+      &lt;td&gt;22.546792&lt;/td&gt;
+      &lt;td&gt;23.958175&lt;/td&gt;
+      &lt;td&gt;24.108178&lt;/td&gt;
+      &lt;td&gt;-5.539141&lt;/td&gt;
+      &lt;td&gt;-5.539141&lt;/td&gt;
+      &lt;td&gt;-5.539141&lt;/td&gt;
+      &lt;td&gt;-0.119039&lt;/td&gt;
+      &lt;td&gt;-0.119039&lt;/td&gt;
+      &lt;td&gt;-0.119039&lt;/td&gt;
+      &lt;td&gt;-5.420102&lt;/td&gt;
+      &lt;td&gt;-5.420102&lt;/td&gt;
+      &lt;td&gt;-5.420102&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;18.494865&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-06-25&lt;/td&gt;
+      &lt;td&gt;24.034510&lt;/td&gt;
+      &lt;td&gt;14.415740&lt;/td&gt;
+      &lt;td&gt;22.616535&lt;/td&gt;
+      &lt;td&gt;23.958410&lt;/td&gt;
+      &lt;td&gt;24.109152&lt;/td&gt;
+      &lt;td&gt;-5.504221&lt;/td&gt;
+      &lt;td&gt;-5.504221&lt;/td&gt;
+      &lt;td&gt;-5.504221&lt;/td&gt;
+      &lt;td&gt;-0.024526&lt;/td&gt;
+      &lt;td&gt;-0.024526&lt;/td&gt;
+      &lt;td&gt;-0.024526&lt;/td&gt;
+      &lt;td&gt;-5.479695&lt;/td&gt;
+      &lt;td&gt;-5.479695&lt;/td&gt;
+      &lt;td&gt;-5.479695&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;18.530289&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;predictions-trend-and-seasonality&quot;&gt;Predictions, Trend and Seasonality&lt;/h2&gt;
+
+&lt;p&gt;Prophet provides some useful functions to plot data. there are 2 backends avaiable &lt;code class=&quot;highlighter-rouge&quot;&gt;plotly&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;matplotlib&lt;/code&gt;. We use matplotlib to plot the predictions. The function plots 95% confidence intervals as well. The &lt;span style=&quot;color:#ea9808;&quot;&gt;predicitons&lt;/span&gt; are plotted as a &lt;span style=&quot;color:#ea9808;&quot;&gt;line&lt;/span&gt; and the &lt;span style=&quot;color:#868686;&quot;&gt;actuals&lt;/span&gt; as &lt;span style=&quot;color:#868686;&quot;&gt;points&lt;/span&gt;. You could easily plot it yourself if you plotted the &lt;code class=&quot;highlighter-rouge&quot;&gt;yhat&lt;/code&gt; from the &lt;code class=&quot;highlighter-rouge&quot;&gt;forecast1&lt;/code&gt; dataframe.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# plots the predictions
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;forecast1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;figure class=&quot;fullwidth&quot;&gt;&lt;img src=&quot;/assets/img/fb_prophet_12.svg&quot; /&gt;&lt;figcaption&gt;Fig2: Plotting predictions&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;If we now wanted to plot &lt;span style=&quot;color:#ea9808;&quot;&gt;trend&lt;/span&gt; and &lt;span style=&quot;color:#ea9808;&quot;&gt;seasonality&lt;/span&gt; from the model we could easily do so by calling the &lt;code class=&quot;highlighter-rouge&quot;&gt;plot_components&lt;/code&gt; method. We notice that Tuesdays and Thursdays are hotter than others and the values are relatively extremely small, this may suggest that this may not be significant. Interestingly, due to the location of australia, the weather is very different compared to other parts of the world. We observe in the yearly seasonality plot that July is the coldest while December is the hottest.  &lt;label for=&quot;2&quot; class=&quot;margin-toggle sidenote-number&quot;&gt;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;2&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;sidenote&quot;&gt;This is also apparent if we compare yearly seasonality with Fig1 &lt;/span&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# plots the trend and seasonality
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot_components&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;forecast1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;figure class=&quot;fullwidth&quot;&gt;&lt;img src=&quot;/assets/img/fb_prophet_13.svg&quot; /&gt;&lt;figcaption&gt;Fig3: Plotting Trend and Seasonality (weekly &amp;amp; yearly)&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;key-takeaways&quot;&gt;Key Takeaways&lt;/h2&gt;
+
+&lt;p&gt;I hope after reading this post you are confident to run your basic prophet model and make forecasts about them.
+Now there is a lot that I haven’t covered here e.g.&lt;/p&gt;
+
+&lt;p&gt;1.) What are changepoints?&lt;/p&gt;
+
+&lt;p&gt;2.) What do we mean by logistic and linear trend?&lt;/p&gt;
+
+&lt;p&gt;3.) How is seasonality calculated (Fourier series)?&lt;/p&gt;
+
+&lt;p&gt;4.) Time-series cross-validation and performance metrics etc.&lt;/p&gt;
+
+&lt;p&gt;5.) How do you boost model performance?&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:#868686;&quot;&gt;Future posts in this series&lt;/span&gt; will help answer all these questions. My goal for this one was to get you started without making you feel overwhelmed with the features. Once again, all the code is stored &lt;a href=&quot;https://github.com/shoaibkhanz/fbprophet_case_studies/tree/master/Part1&quot;&gt;&lt;span style=&quot;color:#ea9808;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;, there is also a &lt;code class=&quot;highlighter-rouge&quot;&gt;utils.py&lt;/code&gt; file in the project that gives the appearance of the charts.&lt;/p&gt;
+
+&lt;p&gt;Let me know in the comments, if you found this post helpful or you find yourself full of doubts.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 20 May 2020 22:00:00 -0400</pubDate>
+        <link>http://localhost:4000/articles/20/Time-Series-Forecasting-using-Prophet-(part1)</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/20/Time-Series-Forecasting-using-Prophet-(part1)</guid>
+        
+        
+        <category>post</category>
+        
+      </item>
     
       <item>
         <title>Adaptive models during COVID-19</title>

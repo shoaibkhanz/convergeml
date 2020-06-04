@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Time-Series Forecasting using Prophet (part1)</title>
-  <meta name="description" content=" Prophet  is a time-series forecasting library by  facebook and it’s available in Python and in R. It is simple to use and requires very little classical tim...">
+  <title>Time-Series Forecasting using Prophet- part1</title>
+  <meta name="description" content="Prophet Prophet  is a time-series forecasting library by  facebook and it’s available in Python and in R. It is simple to use and requires very little classi...">
 
   <!-- Google Fonts loaded here depending on setting in _data/options.yml true loads font, blank does not-->
   
@@ -45,7 +45,7 @@
   <link rel="stylesheet" type="text/css" href="/css/tufte.css">
   <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
 
-  <link rel="canonical" href="http://localhost:4000/articles/20/Time-Series-Forecasting-using-Prophet-(part1)">
+  <link rel="canonical" href="http://localhost:4000/articles/20/Time-Series-Forecasting-using-Prophet-part1">
 
   <link rel="alternate" type="application/rss+xml" title="convergeML" href="http://localhost:4000/feed.xml" />
 
@@ -88,15 +88,17 @@
 </header>
 
     <article class="group">
-      <h1>Time-Series Forecasting using Prophet (part1)</h1>
+      <h1>Time-Series Forecasting using Prophet- part1</h1>
 <p class="subtitle">May 20, 2020 - <em style="color: #475055" >Shoaib Khan</em> </p>
 
 
-<p><span class="newthought"><span style="color:#868686;"> Prophet</span></span>  is a time-series forecasting library by <span style="color:#ea9808;"> facebook</span> and it’s available in Python and in R. It is simple to use and requires very little classical time-series experience, for e.g. ARIMA, SARIMA etc. Thus, you can start <span style="color:#868686;">building models quickly</span>, <span style="color:#868686;">get good results</span> and <span style="color:#868686;">become effective</span> in no time. Considering all prophet has become a popular library for time-series applications.
+<figure class="fullwidth"><img src="/assets/img/fb_prophet_12.svg" /><figcaption>Prophet</figcaption></figure>
+
+<p><span class="newthought"><span style="color:#868686;"> Prophet</span></span>  is a time-series forecasting library by <span style="color:#ea9808;"> facebook</span> and it’s available in Python and in R. It is simple to use and requires very little classical time-series experience, for e.g. ARIMA, SARIMA etc. Thus, you can start <span style="color:#868686;">building models quickly</span>, <span style="color:#868686;">get good results</span> and <span style="color:#868686;">become effective</span> in no time. Considering this, prophet has become a popular library for time-series applications.
 <!--more--></p>
 
 <p>A model in prophet is defined by the following equation. 
-This form is called general additive models, since we adding results from each of the components to get our prediction.</p>
+This form is called general additive model, since we adding results from each of the components to get our prediction.</p>
 
 \[\hat Y_t  = g_t + s_t + h_t + x_t + \epsilon\]
 
@@ -184,29 +186,17 @@ The first step is to instantiate the model by calling Prophet class and define s
 
 </code></pre></div></div>
 
-<p><span style="color:#868686;">forecast1</span> dataframe contains the following data and the key variables too focus on are <span style="color:#ea9808;">ds,trend,yearly,weekly and yhat</span></p>
+<p><span style="color:#868686;">forecast1</span> dataframe multiple variables but the key variables we focus for now are <span style="color:#ea9808;">ds,trend,weekly,yearly and yhat</span></p>
+
+<p>\(\hat Y =\) trend + weekly + yearly</p>
 
 <table>
   <thead>
     <tr>
       <th>ds</th>
       <th>trend</th>
-      <th>yhat_lower</th>
-      <th>yhat_upper</th>
-      <th>trend_lower</th>
-      <th>trend_upper</th>
-      <th>additive_terms</th>
-      <th>additive_terms_lower</th>
-      <th>additive_terms_upper</th>
       <th>weekly</th>
-      <th>weekly_lower</th>
-      <th>weekly_upper</th>
       <th>yearly</th>
-      <th>yearly_lower</th>
-      <th>yearly_upper</th>
-      <th>multiplicative_terms</th>
-      <th>multiplicative_terms_lower</th>
-      <th>multiplicative_terms_upper</th>
       <th>yhat</th>
     </tr>
   </thead>
@@ -214,106 +204,36 @@ The first step is to instantiate the model by calling Prophet class and define s
     <tr>
       <td>2018-06-21</td>
       <td>24.032494</td>
-      <td>14.843615</td>
-      <td>23.077360</td>
-      <td>23.957479</td>
-      <td>24.105033</td>
-      <td>-5.063215</td>
-      <td>-5.063215</td>
-      <td>-5.063215</td>
-      <td>0.156514</td>
-      <td>0.156514</td>
       <td>0.156514</td>
       <td>-5.219729</td>
-      <td>-5.219729</td>
-      <td>-5.219729</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
       <td>18.969280</td>
     </tr>
     <tr>
       <td>2018-06-22</td>
       <td>24.032998</td>
-      <td>14.692531</td>
-      <td>22.382954</td>
-      <td>23.957705</td>
-      <td>24.106094</td>
-      <td>-5.281766</td>
-      <td>-5.281766</td>
-      <td>-5.281766</td>
-      <td>0.007727</td>
-      <td>0.007727</td>
       <td>0.007727</td>
       <td>-5.289494</td>
-      <td>-5.289494</td>
-      <td>-5.289494</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
       <td>18.751232</td>
     </tr>
     <tr>
       <td>2018-06-23</td>
       <td>24.033502</td>
-      <td>14.554238</td>
-      <td>22.553681</td>
-      <td>23.957940</td>
-      <td>24.107150</td>
-      <td>-5.415719</td>
-      <td>-5.415719</td>
-      <td>-5.415719</td>
-      <td>-0.059232</td>
-      <td>-0.059232</td>
       <td>-0.059232</td>
       <td>-5.356488</td>
-      <td>-5.356488</td>
-      <td>-5.356488</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
       <td>18.617783</td>
     </tr>
     <tr>
       <td>2018-06-24</td>
       <td>24.034006</td>
-      <td>14.820403</td>
-      <td>22.546792</td>
-      <td>23.958175</td>
-      <td>24.108178</td>
-      <td>-5.539141</td>
-      <td>-5.539141</td>
-      <td>-5.539141</td>
-      <td>-0.119039</td>
-      <td>-0.119039</td>
       <td>-0.119039</td>
       <td>-5.420102</td>
-      <td>-5.420102</td>
-      <td>-5.420102</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
       <td>18.494865</td>
     </tr>
     <tr>
       <td>2018-06-25</td>
       <td>24.034510</td>
-      <td>14.415740</td>
-      <td>22.616535</td>
-      <td>23.958410</td>
-      <td>24.109152</td>
-      <td>-5.504221</td>
-      <td>-5.504221</td>
-      <td>-5.504221</td>
-      <td>-0.024526</td>
-      <td>-0.024526</td>
       <td>-0.024526</td>
       <td>-5.479695</td>
-      <td>-5.479695</td>
-      <td>-5.479695</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
       <td>18.530289</td>
     </tr>
   </tbody>
@@ -363,7 +283,7 @@ Now there is a lot that I haven’t covered here e.g.</p>
   <div id="disqus_thread"></div>
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://localhost:4000/articles/20/Time-Series-Forecasting-using-Prophet-(part1)';
+      this.page.url = 'http://localhost:4000/articles/20/Time-Series-Forecasting-using-Prophet-part1';
       this.page.identifier = 'https-shoaibkhanz-github-io-convergeml';
     };
     (function() {
@@ -381,7 +301,7 @@ Now there is a lot that I haven’t covered here e.g.</p>
 
     </article>
 
-    <span class="print-footer">Time-Series Forecasting using Prophet (part1) - May 20, 2020 - shoaibkhanz</span>
+    <span class="print-footer">Time-Series Forecasting using Prophet- part1 - May 20, 2020 - shoaibkhanz</span>
     <footer>
   <hr class="slender">
   <ul class="footer-links">

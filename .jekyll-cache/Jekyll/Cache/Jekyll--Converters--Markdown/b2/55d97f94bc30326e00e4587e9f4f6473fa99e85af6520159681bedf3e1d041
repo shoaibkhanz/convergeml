@@ -1,0 +1,4 @@
+I"I<figure class="fullwidth"><img src="/assets/img/fb_prophet_23.svg" /><figcaption></figcaption></figure>
+
+<p><span class="newthought">In</span>  the last post, we learned that we can build a simple Prophet model by combining <span style="color:#ea9808;">trend</span> and <span style="color:#ea9808;">seasonality</span> to forecast the future. We saw, that in the model equation not only can we add those factors but we can also include <span style="color:#ea9808;">holidays effects</span> and <span style="color:#ea9808;">extra regressors</span>, which makes it extremely powerful.</p>
+:ET

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Conundrums of the Confusion Matrix</title>
+  <meta name="description" content="Its extremely important to understand your model’s performance. In this post, I explain fundamental metrics such as precision, recall, accuracy, error rate e...">
+
+  <!-- Google Fonts loaded here depending on setting in _data/options.yml true loads font, blank does not-->
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:400,400italic' rel='stylesheet' type='text/css'>
+  
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: [
+      "MathMenu.js",
+      "MathZoom.js",
+      "AssistiveMML.js",
+      "a11y/accessibility-menu.js"
+    ],
+    jax: ["input/TeX", "output/CommonHTML"],
+    TeX: {
+      extensions: [
+        "AMSmath.js",
+        "AMSsymbols.js",
+        "noErrors.js",
+        "noUndefined.js",
+      ]
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+ <!--   <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="/articles/19/Conundrums-of-the-Confusion-Matrix">
+
+  <link rel="alternate" type="application/rss+xml" title="convergeML" href="/feed.xml" />
+
+
+
+</head>
+
+  <body>
+    <!--- Header and nav template site-wide -->
+<header>
+    <nav class="group">
+	<a href="/"><img class="badge" src="/assets/img/badge_1.png" alt="convergeML"></a>
+	
+			
+  	
+			
+		    	
+		      <a href="/">convergeML</a>
+				
+			
+			
+  	
+			
+		    	
+		      <a href="/about/">About</a>
+				
+			
+			
+  	
+			
+		    	
+		      <a href="/css/print.css"></a>
+				
+			
+			
+  	
+			
+  	
+	</nav>
+</header>
+
+    <article class="group">
+      <h1>Conundrums of the Confusion Matrix</h1>
+<p class="subtitle">January 12, 2019 - <em style="color: #475055" >Shoaib Khan</em> </p>
+
+
+<p>Its extremely important to understand your model’s performance. In this post, I explain fundamental metrics such as <span style="color:#ea9808;">precision, recall, accuracy, error rate</span> etc.. these metrics help us evaluate all types of classification models e.g. <b style="color: #868686">logistic regression, random forest, neural network</b> etc.
+I had written this <a style="color: #ea9808" href="https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a">post</a> originally on Medium and its been appreciated by many for its simplicity and visuals.
+<!--more--></p>
+
+
+
+  
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = '/articles/19/Conundrums-of-the-Confusion-Matrix';
+      this.page.identifier = 'https-shoaibkhanz-github-io-convergeml';
+    };
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-shoaibkhanz-github-io-convergeml.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+    </article>
+
+    <span class="print-footer">Conundrums of the Confusion Matrix - January 12, 2019 - shoaibkhanz</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links">
+    
+      <li>
+        <a href="//www.twitter.com/shoaibkhanz"><span class="icon-twitter"></span></a>
+      </li>
+    
+      <li>
+        <a href="//github.com/shoaibkhanz"><span class="icon-github"></span></a>
+      </li>
+      
+  </ul>
+<div class="credits">
+<span>&copy; 2020 &nbsp; convergeml.com </span></br> <br>
+</div>  
+</footer>
+    
+    
+  </body>
+</html>

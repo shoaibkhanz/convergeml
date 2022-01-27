@@ -1,10 +1,10 @@
-baseurl: 
+baseurl:
 title: convergeML
-subtitle: 
+subtitle:
 author: shoaibkhanz
 simple_search: http://google.com/search
 description: converge to better learning
-name: 
+name:
 markdown: kramdown
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 permalink: /articles/:short_year/:title
@@ -24,7 +24,7 @@ transfer:
   command: rsync
   settings: -av
   source: _site/
-  destination: 
+  destination:
 
 # Disqus Comments
 disqus:

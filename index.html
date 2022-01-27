@@ -1,6 +1,6 @@
 ---
 layout: full-width
-title: convergeML
+title: blog
 # Note that this index page uses a full-width layout!
 ---
 
@@ -10,7 +10,7 @@ title: convergeML
         <li class="listing">
           <hr class="slender">
           <a href="{{ post.url | prepend: site.baseurl }}"><h3 class="contrast">{{ post.title }}</h3></a>
-          <br><span class="smaller">{{ post.date | date: "%B %-d, %Y" }} - <em style="color: #ffffff" >{{ post.author }}</em> </span>  <br/>
+          <br><span class="smaller">{{ post.date | date: "%B %-d, %Y" }}</span>  <br/>
           <div>{{ post.excerpt }}</div> 
         </li>
     {% endfor %}
